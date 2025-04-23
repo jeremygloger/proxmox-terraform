@@ -12,10 +12,10 @@ You will need to create a template for your VM. This will allow you to create fr
 More info here: https://pve.proxmox.com/wiki/VM_Templates_and_Clones
 
 You will also need to setup the following secrets in your Repo
-ARM_CLIENT_ID
-ARM_CLIENT_SECRET
-ARM_SUBSCRIPTION_ID
-ARM_TENANT_ID
-PROXMOX_API_URL
-PROXMOX_API_TOKEN_SECRET
-PROXMOX_NODE (note: you can make this a variable if you want)
+-  ARM_CLIENT_ID
+-  ARM_CLIENT_SECRET
+-  ARM_SUBSCRIPTION_ID
+-  ARM_TENANT_ID
+-  PROXMOX_API_URL
+-  PROXMOX_API_TOKEN_SECRET
+-  PROXMOX_NODE (note: you can make this a variable if you want)
