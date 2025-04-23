@@ -1,0 +1,44 @@
+name: 'Terraform Proxmox Infrastructure'
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: self-hosted
+
+    env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_USE_CLI: false
+        TF_VAR_proxmox_api_url: ${{ secrets.PROXMOX_API_URL }}
+        TF_VAR_proxmox_user: ${{ secrets.PROXMOX_API_TOKEN_ID }}
+        TF_VAR_proxmox_pass: ${{ secrets.PROXMOX_API_TOKEN_SECRET }}  
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./proxmox
+
+    - name: Terraform Format
+      run: terraform fmt
+      working-directory: ./proxmox
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -input=false
+      working-directory: ./proxmox
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false
+      working-directory: ./proxmox
